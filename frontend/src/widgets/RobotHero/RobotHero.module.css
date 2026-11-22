@@ -1,0 +1,161 @@
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: min(var(--robot-height, 460px), 640px);
+  min-height: 280px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  background:
+    radial-gradient(70% 45% at 50% 100%, rgba(255, 255, 255, 0.12), transparent 70%),
+    radial-gradient(60% 40% at 50% 0%, rgba(255, 255, 255, 0.05), transparent 70%),
+    linear-gradient(180deg, rgba(20, 20, 23, 0.82), rgba(6, 6, 8, 0.92));
+  box-shadow:
+    var(--shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(18px);
+}
+
+/* Вертикальный луч света, как на референсе */
+.beam {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 160px;
+  background: radial-gradient(50% 60% at 50% 65%, rgba(255, 255, 255, 0.16), transparent 70%);
+  transform: translateX(-50%);
+  animation: breathe 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.beamFlash {
+  animation:
+    flash 1.2s ease-out,
+    breathe 5s ease-in-out 1.2s infinite;
+}
+
+.bubbleWrap {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.bubble {
+  position: relative;
+  margin: 0;
+  max-width: 300px;
+  padding: 12px 18px;
+  border: 1px solid var(--border-strong);
+  border-radius: 18px;
+  background: var(--card-gradient), rgba(26, 26, 29, 0.92);
+  box-shadow:
+    0 12px 30px -12px rgba(0, 0, 0, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  font-weight: 600;
+  text-align: center;
+  transform-origin: bottom center;
+  animation: bubble-in 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+.bubble::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  width: 12px;
+  height: 12px;
+  background: rgb(26, 26, 29);
+  border-right: 1px solid var(--border-strong);
+  border-bottom: 1px solid var(--border-strong);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.canvas {
+  position: absolute !important;
+  inset: 0;
+}
+
+.placeholder {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.18), transparent 70%);
+  transform: translate(-50%, -50%);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.fallback {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  margin: 0;
+  color: var(--muted);
+}
+
+.hint {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-align: center;
+  pointer-events: none;
+}
+
+@keyframes bubble-in {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: perspective(500px) rotateX(-30deg) translateY(10px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+
+@keyframes breathe {
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes flash {
+  0% {
+    opacity: 1;
+    filter: brightness(2.6);
+    transform: translateX(-50%) scaleX(1.8);
+  }
+  100% {
+    opacity: 1;
+    filter: none;
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+}

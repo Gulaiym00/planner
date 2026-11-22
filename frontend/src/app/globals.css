@@ -1,0 +1,113 @@
+/* Одна тема: чёрный фон + графитовые слои. Чем выше слой, тем светлее серый */
+:root {
+  color-scheme: dark;
+  --bg: #050506;
+  --surface: #121214;
+  --surface-2: #1a1a1d;
+  --surface-3: #232327;
+  --text: #f4f4f5;
+  --muted: #8d8d96;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.18);
+
+  /* Главный акцент — белый, как кнопки на референсе */
+  --primary: #ffffff;
+  --primary-hover: #e4e4e7;
+  --on-primary: #0a0a0b;
+  --primary-soft: rgba(255, 255, 255, 0.07);
+  --primary-soft-strong: rgba(255, 255, 255, 0.2);
+  --accent: #c9cad1;
+
+  --danger: #ff6b6b;
+  --danger-soft: rgba(255, 107, 107, 0.1);
+  --glow: rgba(255, 255, 255, 0.1);
+  --shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.9);
+  --card-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.01));
+  --radius: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--on-primary);
+}
+
+kbd {
+  padding: 1px 6px;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+/* Цветные эмодзи приглушаем до серебра — цвет остаётся только у точек сфер */
+.mono-emoji {
+  filter: grayscale(1) brightness(1.25) contrast(0.9);
+}
+
+/* Световое пятно за курсором — координаты задаёт useSpotlight */
+[data-spotlight] {
+  --mx: 50%;
+  --my: 50%;
+}
+
+[data-spotlight]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.07), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+[data-spotlight]:hover::after {
+  opacity: 1;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 3px solid var(--bg);
+  border-radius: 999px;
+  background: var(--surface-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

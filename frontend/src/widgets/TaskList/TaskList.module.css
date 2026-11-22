@@ -1,0 +1,101 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Графитовая карточка; на hover — световое пятно и наклон за курсором (useSpotlight) */
+.item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 14px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--card-gradient), rgba(18, 18, 20, 0.88);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transform-origin: center;
+  transition: transform 0.2s ease-out, box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+  /* backwards — чтобы после появления работал transform из :hover */
+  animation: item-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+
+.item:hover {
+  border-color: var(--border-strong);
+  box-shadow:
+    var(--shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-2px);
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.title {
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.description {
+  color: var(--muted);
+  font-size: 14px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.completed {
+  opacity: 0.55;
+}
+
+.completed .title {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-shrink: 0;
+  gap: 6px;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.item:hover .actions,
+.item:focus-within .actions {
+  opacity: 1;
+  transform: none;
+}
+
+@media (hover: none) {
+  .actions {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes item-in {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(10px) scale(0.98);
+  }
+}

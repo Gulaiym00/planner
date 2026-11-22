@@ -1,0 +1,98 @@
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  moduleFormat        = "esm"
+  importFileExtension = "js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// Сфера жизни: Учёба, Курсы, Спорт, Дом, Друзья или любая своя
+model Sphere {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String
+  icon      String   @default("📌")
+  color     String   @default("#7c5cff")
+  sortOrder Int      @default(0) @map("sort_order")
+  archived  Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  groups Group[]
+  tasks  Task[]
+  events Event[]
+
+  @@map("spheres")
+}
+
+/// Группа внутри сферы: предмет, курс и т.п. Создаётся пользователем
+model Group {
+  id        String   @id @default(uuid()) @db.Uuid
+  sphereId  String   @map("sphere_id") @db.Uuid
+  name      String
+  color     String?
+  sortOrder Int      @default(0) @map("sort_order")
+  archived  Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  sphere Sphere  @relation(fields: [sphereId], references: [id], onDelete: Cascade)
+  tasks  Task[]
+  events Event[]
+
+  @@index([sphereId])
+  @@map("groups")
+}
+
+/// Разовая задача: домашка, задание с курса, «купить подарок»
+model Task {
+  id          String    @id @default(uuid()) @db.Uuid
+  title       String
+  description String?
+  sphereId    String?   @map("sphere_id") @db.Uuid
+  groupId     String?   @map("group_id") @db.Uuid
+  dueDate     DateTime? @map("due_date") @db.Date
+  completed   Boolean   @default(false)
+  completedAt DateTime? @map("completed_at") @db.Timestamptz
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz
+
+  sphere Sphere? @relation(fields: [sphereId], references: [id], onDelete: Cascade)
+  group  Group?  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@index([sphereId])
+  @@index([groupId])
+  @@index([completed, dueDate])
+  @@map("tasks")
+}
+
+enum EventStatus {
+  planned
+  done
+  cancelled
+}
+
+/// Событие с датой и временем: встреча с друзьями, занятие на курсе
+model Event {
+  id        String      @id @default(uuid()) @db.Uuid
+  title     String
+  note      String?
+  location  String?
+  people    String?
+  sphereId  String?     @map("sphere_id") @db.Uuid
+  groupId   String?     @map("group_id") @db.Uuid
+  startsAt  DateTime    @map("starts_at") @db.Timestamptz
+  endsAt    DateTime?   @map("ends_at") @db.Timestamptz
+  status    EventStatus @default(planned)
+  createdAt DateTime    @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime    @updatedAt @map("updated_at") @db.Timestamptz
+
+  sphere Sphere? @relation(fields: [sphereId], references: [id], onDelete: Cascade)
+  group  Group?  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@index([startsAt])
+  @@index([sphereId])
+  @@map("events")
+}

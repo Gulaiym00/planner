@@ -1,0 +1,52 @@
+- generic [ref=e2]:
+  - complementary [ref=e3]:
+    - navigation "Навигация" [ref=e4]:
+      - link "Планер Бипа учёба, дела, встречи" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e13]:
+          - generic [ref=e14]: Планер Бипа
+          - generic [ref=e15]: учёба, дела, встречи
+      - link "Сегодня" [ref=e16] [cursor=pointer]:
+        - /url: /
+        - generic [aria-hidden] [ref=e17]: ☀️
+        - text: Сегодня
+      - generic [ref=e18]:
+        - generic [ref=e19]: Сферы
+        - button "Новая сфера" [ref=e20] [cursor=pointer]: +
+      - paragraph [ref=e21]: Загружаю…
+      - list
+      - generic [ref=e22] [cursor=pointer]:
+        - switch "Живой фон" [checked]
+        - text: Живой фон
+      - paragraph [ref=e24]: N задача · M встреча
+  - main [ref=e25]:
+    - generic [ref=e26]:
+      - generic [ref=e27]:
+        - generic [ref=e28]:
+          - generic [ref=e29]: воскресенье, 11 октября
+          - heading "Сегодня" [level=1] [ref=e31]
+          - paragraph [ref=e32]: Спокойный день. Можно что-нибудь запланировать
+        - generic [ref=e33]:
+          - button "+ Встреча M" [ref=e34] [cursor=pointer]:
+            - text: + Встреча
+            - generic [ref=e35]: M
+          - button "+ Задача N" [ref=e36] [cursor=pointer]:
+            - text: + Задача
+            - generic [ref=e37]: "N"
+      - generic [ref=e38]:
+        - heading "По времени 0" [level=2] [ref=e40]:
+          - generic [aria-hidden] [ref=e41]: 🕒
+          - text: По времени
+          - generic [ref=e42]: "0"
+        - paragraph [ref=e43]: Встреч на сегодня нет
+      - generic [ref=e44]:
+        - heading "На сегодня 0" [level=2] [ref=e46]:
+          - generic [aria-hidden] [ref=e47]: 📌
+          - text: На сегодня
+          - generic [ref=e48]: "0"
+        - paragraph [ref=e49]: Загружаю…
+  - complementary [ref=e50]:
+    - region "Робот-помощник Бип" [ref=e51]:
+      - status:
+        - paragraph: Привет! Я Бип.
+      - paragraph: Нажми на Бипа 👆

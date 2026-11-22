@@ -1,0 +1,60 @@
+.field {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.field::placeholder {
+  color: var(--muted);
+}
+
+.field:focus {
+  outline: none;
+  border-color: var(--border-strong);
+  background: var(--surface-3);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.06);
+}
+
+.field::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.textarea {
+  min-height: 44px;
+  resize: vertical;
+}
+
+.select {
+  cursor: pointer;
+}
+
+.select option,
+.select optgroup {
+  background: var(--surface-2);
+}
+
+.formField {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 12px;
+}

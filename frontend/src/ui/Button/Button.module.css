@@ -1,0 +1,85 @@
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s, box-shadow 0.25s;
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(1px) scale(0.97);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+.button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.md {
+  padding: 10px 22px;
+  font-size: 15px;
+}
+
+.sm {
+  padding: 5px 13px;
+  font-size: 13px;
+}
+
+/* Белая «таблетка» с бликом, пробегающим при наведении */
+.primary {
+  background: var(--primary);
+  color: var(--on-primary);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.4),
+    0 8px 28px -10px rgba(255, 255, 255, 0.45);
+}
+
+.primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.9) 50%, transparent 70%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.6),
+    0 10px 36px -8px rgba(255, 255, 255, 0.6);
+}
+
+.primary:hover:not(:disabled)::after {
+  transform: translateX(120%);
+  transition: transform 0.7s ease;
+}
+
+.ghost,
+.danger {
+  background: var(--surface-2);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.ghost:hover:not(:disabled) {
+  background: var(--surface-3);
+  border-color: var(--border-strong);
+}
+
+.danger:hover:not(:disabled) {
+  border-color: var(--danger);
+  color: var(--danger);
+  background: var(--danger-soft);
+}

@@ -1,0 +1,62 @@
+.shell {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr) 340px;
+  grid-template-areas: "side main robot";
+  gap: 28px;
+  align-items: start;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.sidebar {
+  grid-area: side;
+  position: sticky;
+  top: 24px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+}
+
+.main {
+  grid-area: main;
+  min-width: 0;
+}
+
+.robot {
+  grid-area: robot;
+  position: sticky;
+  top: 24px;
+  --robot-height: calc(100vh - 48px);
+}
+
+/* Средний экран: Бип над содержимым */
+@media (max-width: 1280px) {
+  .shell {
+    grid-template-columns: 240px minmax(0, 1fr);
+    grid-template-areas:
+      "side robot"
+      "side main";
+  }
+
+  .robot {
+    position: static;
+    --robot-height: 340px;
+  }
+}
+
+@media (max-width: 760px) {
+  .shell {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "side"
+      "robot"
+      "main";
+    gap: 20px;
+    padding: 16px;
+  }
+
+  .sidebar {
+    position: static;
+    max-height: none;
+  }
+}
